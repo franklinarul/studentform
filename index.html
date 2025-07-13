@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form and Table</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 10px
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="form">
+
+        <h1>User Form</h1>
+
+        <form>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div>
+                <label for="number">Number:</label>
+                <input type="number" id="number" name="number">
+            </div>
+
+            <div>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address"></textarea>
+            </div>
+
+            <div>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>Z
+                    <option value="Others">Others</option>Z
+                </select>
+            </div>
+
+            <div>
+                <label for="dob">DOB:</label>
+                <input type="date" id="dob" name="dob">
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+
+    </section>
+
+    <br>
+
+    <section id="table">
+        <table border="1" id="userTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                    <th>Address</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <script>
+        let form = document.querySelector("form")
+        const table = document.getElementById("userTable").getElementsByTagName("tbody")[0]
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault()
+
+
+            const formData = new FormData(form)
+
+            let user = {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                number: formData.get("number"),
+                address: formData.get("address"),
+                dob: formData.get("dob"),
+                gender: formData.get("gender"),
+            }
+
+            const row = table.insertRow()
+
+            row.innerHTML = `
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.number}</td>
+                <td>${user.address}</td>
+                <td>${user.gender}</td>
+                <td>${user.dob}</td>
+                <td>
+                    <button onclick="deleteBtn(this)">Delete</button>    
+                </td>
+            `
+
+            form.reset()
+        })
+
+        function deleteBtn(btn) {
+            btn.parentNode.parentNode.remove()
+        }
+    </script>
+
+</body>
+
+</html>
